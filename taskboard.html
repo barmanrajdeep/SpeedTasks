@@ -6,6 +6,7 @@
   <link href='./css/reset.css' rel='stylesheet' type='test/css'>
   <link href='./css/styles.css' rel='stylesheet' type='test/css'>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="./scripts/helper.js"></script>
 </head>
 <body>
   <div id="board">
@@ -18,40 +19,55 @@
   </div>
 </body>
 <script type='text/javascript'>
-function show() {
-  var task = $('#todo').val();
-  if ( $('#todo').val() != '') {
-    var count = localStorage.length;
-    count = count + 1;
-    localStorage.setItem(count, task);
-    $('.list').append("<div class='tasks'><input class='taskCheck' onclick='clickme(this)' type='checkbox'><span class='taskNo'>"+ count +". "+"</span><span class='task'>"+localStorage.getItem(count)+"</span></div>");
-    $('#todo').val('');
-  }
-}
-if (localStorage.length != 0) {
-  var count = localStorage.length;
-  for (var counter = 1; counter <= count; counter++) {
-    $('.list').append("<div class='tasks'><input class='taskCheck' onclick='clickme(this)' type='checkbox'><span class='taskNo'>"+ counter +". "+"</span><span class='task'>"+localStorage.getItem(counter)+"</span></div>");
-  }
-}
 
-function clickme(x) {
-  if (!x.checked) {
-    $(x).checked = true;
+  var taskArray = [];
+
+  if (localStorage.length != 0) {
+      for (e in localStorage) {
+        taskArray[e] = localStorage.getItem(e);
+      }
   }
-  if (x.checked)
-    $(x).checked = false;
-  }
-  function del() {
-    var count = localStorage.length;
-    if (count > 0) {
-      $('.taskCheck').each(function(){
-        if($(this).is(":checked")) {
-          console.log($(this).parent().remove());
-        }
-      });
+
+
+  function show() {
+    var task = $('#todo').val();
+    if ( $('#todo').val() != '') {
+      var count = taskArray.length;
+
+      taskArray.push(task);
+      $('.list').append("<div class='tasks'><input class='taskCheck' onclick='clickme(this)' type='checkbox'><span class='taskNo'>"+ count +". "+"</span><span class='task'>"+taskArray[count]+"</span></div>");
+      $('#todo').val('');
+
+      localStorage.clear();
+      for (e in taskArray) {
+        localStorage.setItem(e, taskArray[e]);
+      }
     }
   }
+
+  if (localStorage.length != 0) {
+    for (e in localStorage) {
+      $('.list').append("<div class='tasks'><input class='taskCheck' onclick='clickme(this)' type='checkbox'><span class='taskNo'>"+ e +". "+"</span><span class='task'>"+localStorage.getItem(e)+"</span></div>");
+    }
+  }
+
+  function clickme(x) {
+    if (!x.checked) {
+      $(x).checked = true;
+    }
+    if (x.checked)
+      $(x).checked = false;
+  }
+  // function del() {
+  //   var count = localStorage.length;
+  //   if (count > 0) {
+  //     $('.taskCheck').each(function(){
+  //       if($(this).is(":checked")) {
+  //         console.log($(this).parent().remove());
+  //       }
+  //     });
+  //   }
+  // }
 
 
 </script>
