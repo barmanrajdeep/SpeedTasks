@@ -11,7 +11,7 @@
   <div id="board">
     <ul id=listone>
       <li>TASKS</li>
-      <li id='add'><img onclick='del()' height="16" width="16" src="./images/delete.png" alt="add task"></li>
+      <li id='delete'><img onclick='del()' height="16" width="16" src="./images/delete.png" alt="delete task"></li>
     </ul>
     <div class="list"></div>
     <input id='todo' type='text' onchange="show()" name='task'>
@@ -34,7 +34,7 @@
       var count = taskArray.length;
 
       taskArray.push(task);
-      $('.list').append("<div class='tasks'><input class='taskCheck' onclick='clickme(this)' type='checkbox'><span class='taskNo'>"+ count +"</span>.&nbsp;<span class='task'>"+taskArray[count]+"</span></div>");
+      $('.list').append("<div class='tasks'><input class='taskCheck' onclick='clickme(this)' type='checkbox'><span class='taskNo'>"+ count +"</span>&nbsp;<span class='task'>"+taskArray[count]+"</span></div>");
       $('#todo').val('');
 
       localStorage.clear();
@@ -46,7 +46,7 @@
 
   if (localStorage.length != 0) {
     for (e in localStorage) {
-      $('.list').append("<div class='tasks'><input class='taskCheck' onclick='clickme(this)' type='checkbox'><span class='taskNo'>"+ e +"</span>.&nbsp;<span class='task'>"+localStorage.getItem(e)+"</span></div>");
+      $('.list').append("<div class='tasks'><input class='taskCheck' onclick='clickme(this)' type='checkbox'><span class='taskNo'>"+ e +"</span>&nbsp;<span class='task'>"+localStorage.getItem(e)+"</span></div>");
     }
   }
 
@@ -65,7 +65,7 @@
         checkedTasks.push($(this).next().next().html());
         $(this).parent().remove();
       });
-      
+
       var index = 0;
       $('.taskNo').each(function(){$(this).html(index++)});
       console.log(checkedTasks);

@@ -4,3 +4,5 @@ body {font-family: 'Open Sans', sans-serif;}
 #listone li {float:left }
 #listone:after {display:block;content:''; clear:both}
 #listone li:first-child {width: 200px; text-align: center}
+.taskNo {display: none;}
+#delete{display:none}
